@@ -1,0 +1,8 @@
+{% extends "blacklist.html.twig" %}
+
+{% block content %}
+
+    <div class="alert alert-success">{{ 'blacklist.add_success'|trans({'%email%': "<strong>#{email}</strong>"})|raw }}</div>
+    <p>{{ 'blacklist.revert'|trans|nl2br|replace({'%link_start%': '<a href="'~path('home')~'">', '%link_end%': '</a>'})|raw }}</p>
+
+{% endblock %}

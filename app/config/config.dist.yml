@@ -1,0 +1,19 @@
+analytics: ''
+debug: true/false
+
+swiftmailer.options:
+      host: ''
+      port: 465
+      username: ''
+      password: ''
+      encryption: 'ssl'
+      auth_mode: 'login'
+
+predis:
+    predis.parameters:
+        scheme: 'tcp'
+        host: '127.0.0.1'
+        port: 6379
+        database: 0
+    predis.options:
+        profile: '2.6'

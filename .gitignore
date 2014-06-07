@@ -1,0 +1,5 @@
+.idea/
+vendor/*
+composer.lock
+app/config/production.yml
+app/config/development.yml

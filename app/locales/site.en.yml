@@ -1,0 +1,95 @@
+# Layout
+
+layout:
+    home: Home
+    app: App
+    blacklist: Blacklist
+
+# Homepage
+
+home:
+    h1: Can't decide on something ?
+    subtext: Let the all mighty computer decide for you !
+    btn_call2action: Try it &raquo;
+
+    sub1:
+        title: Emails
+        text: The result can be sent to your mailbox and to anyone you want as well, to settle things once and for all.
+
+    sub2:
+        title: Open source
+        text: View the source code on Github
+        link: Check &raquo;
+
+    sub3:
+        title: Stats
+        text: PloufPlouf helped %picked% undecideds.
+        text: "{0} PloufPlouf helped noone to decide :(|{1} PloufPlouf helped %picked% undecided.|[2, +Inf[ PloufPlouf helped %picked% undecideds."
+
+# Dilemma page
+
+app:
+    label:
+        question: Question or topic :
+        choices: Choices :
+        emails: Emails :
+        name: Your name :
+        email: Your email :
+
+    btn:
+        add: Add
+        remove: remove
+        submit_dilemma: Let's roll ...
+
+        populate: Yes / No
+        populate_yes: Yes
+        populate_no: No
+        reset: Empty
+
+    placeholder:
+        optional: Optional
+        choice: Add a choice
+        email: Add an email
+
+    no_choices: No choices. You need to add at least two choices.
+
+    no_emails: No emails added yet. You will be the only one receiving the results.
+    cant_emails: You can only add emails if you enter your name and email first.
+
+    has_errors: There are some errors, please correct here and try again.
+
+# Results page
+
+results:
+    header: result :
+    choices: Choices were :
+
+    emails_sent: Emails sent :
+
+    what_next: What to do next
+    btn.new_dilemma: New dilemma
+    btn.modify: Modify & run again
+
+# Blacklist pages
+
+blacklist:
+    h1: Blacklist
+
+    remove_intro: Enter your email below to remove it from the blacklist.
+    submit: Submit
+
+    add_success: Your email %email% has been blacklisted.
+    revert: You can revert it by clicking %link_start%here%link_end%.
+    add_error: Your email has NOT been blacklisted.
+
+    email_sent_p1: If your email was blacklisted, an email has been sent to you.
+    email_sent_p2: Click on the link provided in it to complete the process.
+
+    removal_success: Your email has been whitelisted.
+    removal_error1: Your email has NOT been whitelisted.
+
+    error_hint: The link may be incorrect or expired.
+
+misc:
+    timelimit: You must wait %delay% seconds between picks when using the email feature.
+    error: An error occured while picking a value

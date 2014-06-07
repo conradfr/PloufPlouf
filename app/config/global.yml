@@ -1,0 +1,4 @@
+blacklist:
+    delay_between_pick_session: 30
+    delay_between_pick_ip: 15
+    message_blacklist_ttl: 86400

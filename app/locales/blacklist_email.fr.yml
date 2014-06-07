@@ -1,0 +1,7 @@
+hi: Bonjour,
+intro: Vous avre demandé à ce que votre email soit retiré de la liste noire de <a href="%link%">PloufPlouf</a>.
+removal_link: <a href="%link">Cliquez-ici</a> pour enlever votre email de cette liste ou allez ici : %link%
+signature: |
+  Cordialement,
+  <a href="%link%">PloufPlouf</a>
+timelimit: Ce lient est disponible pendant 24h.

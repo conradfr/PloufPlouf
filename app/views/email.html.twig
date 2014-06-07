@@ -1,0 +1,17 @@
+{% trans_default_domain "success_email" %}
+
+<p>{{ 'hi'|trans() }}</p>
+<p>{{ 'intro'|trans({'%name%': "<a href=\"mailto:#{email}\">#{name}</a>", '%link%': url('home')})|raw }}
+{% if question is defined and question is not empty %}
+    <p>{{ 'question'|trans({'%question%': question}) }}</p>
+{% endif %}
+<p>{{ 'result'|trans({'%result%': "<strong>#{picked_value}</strong>"})|raw }}</p>
+<p>{{ 'choices'|trans }}</p>
+<ul>
+    {% for choice in choices %}
+        <li>{{ choice }}</li>
+    {% endfor %}
+</ul>
+<p>{{ 'signature'|trans({'%link%': url('home')})|raw|nl2br }}</p>
+<hr>
+<font size="2">{{ 'blacklist'|trans({'%link%': url('blacklist_add', {message_id: message_id, email_id: email_id})})|raw }}</font>

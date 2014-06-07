@@ -1,0 +1,8 @@
+{% trans_default_domain "blacklist_email" %}
+
+<p>{{ 'hi'|trans }}</p>
+<p>{{ 'intro'|trans }}</p>
+<p>{{ 'removal_link'|trans({'link':url('blacklist_remove_confirm', {email_id: email_id})})|raw }}</p>
+<p>{{ 'signature'|trans({'link':'#'}) }}|nl2br|raw</p>
+<hr>
+<font size="2">{{ 'timelimit'|trans }}</font>

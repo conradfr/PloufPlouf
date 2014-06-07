@@ -1,0 +1,98 @@
+{% macro menu(check, class, _context) %}
+    {% if check == menu %}
+    class="{{ class|default('active') }}"
+    {% endif %}
+{% endmacro %}
+{% import _self as utils %}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <title>{% block title %}PloufPlouf{% endblock %}</title>
+	<meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Let randomness run your life">
+
+    {% block stylesheets %}
+        <link rel="stylesheet" media="screen" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" media="screen" href="{{ asset('bootstrap/css/bootstrap-theme.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    {% endblock %}
+
+	<script>
+        {% block javascript_head %}
+            var baseUrl = '/';
+        {% endblock %}
+    </script>
+
+  </head>
+<body {{ body_extra|default('')|raw }} {{ utils.menu('app', 'app') }}>
+
+    <!--[if lt IE 7]>
+    <div class="alert alert-warning">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+    <![endif]-->
+
+<div class="wrap">
+
+<!-- Fixed navbar -->
+<div class="navbar navbar-inverse navbar-static-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ path('home') }}">PloufPlouf</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li {{ utils.menu('home') }}><a href="{{ path('home') }}">{{ 'layout.home'|trans }}</a></li>
+                <li {{ utils.menu('app') }}><a href="{{ path('app') }}">{{ 'layout.app'|trans }}</a></li>
+                <li {{ utils.menu('blacklist') }}><a href="{{ path('blacklist_remove') }}">{{ 'layout.blacklist'|trans }}</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+
+<div class="main">
+    {% block body %}
+    {% endblock %}
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                PloufPlouf ©2014 <a href="http://www.funkybits.fr">FunkyBits</a>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+
+{% block javascripts %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+
+    <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
+{% endblock %}
+
+{% if env == 'production' %}
+<script>
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+        e.src='//www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','{{ analytics }}');ga('send','pageview');
+</script>
+{% endif %}
+
+  </body>
+</html>

@@ -1,0 +1,292 @@
+@import "variables.less"; // bootstrap variables, used for responsive feature
+
+/* colors */
+@question:  #12b0c5;
+@choices-label: #96bf48;
+@choices:#a0c55a;
+@choices-even: darken(@choices, 5%);
+@emails-label: #ff9618;
+@emails: #ffa02f;
+@emails-even: darken(@emails, 5%);
+@sender: #9c4274;
+@sender-alt: darken(@sender, 5%);
+@action: black;
+
+@background-color: black;
+
+html, body {
+  height: 100%;
+}
+
+body {
+
+}
+
+// background is different in the app than rest of the site
+body.app {
+background-image: linear-gradient(to bottom, @action 0px, lighten(@action, 3%) 100%);
+background-repeat: repeat-x;
+background-color: @action;
+}
+
+.navbar-inverse .navbar-brand {
+  color: white !important;
+}
+
+.navbar-inverse .navbar-brand:hover {
+  color: darken(white, 5%) !important;
+}
+
+.wrap {
+  min-height:100%;
+  position:relative;
+}
+
+.main {
+  // footer only on desktops
+  @media (min-width: @screen-md-min) {
+    padding-bottom:30px;
+  }
+}
+
+.footer {
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:30px;
+
+  text-align: center;
+  color: darken(white, 75%);
+  font-size: 12px;
+
+  // footer only on desktops
+  @media (max-width: @screen-sm-max) {
+    display: none;
+  }
+}
+
+.navbar-static-top {
+    margin-bottom: 0;
+}
+
+
+.appColors() {
+  color: white;
+  background-color: @background-color;
+}
+
+#dilemma {
+  .appColors();
+
+  .strip() {
+
+    box-shadow: 0 0px 1px 0px rgba(0, 0, 0, 0.05);
+
+    /* overwriting bootstrap value */
+    .form-group { margin-bottom: 0px; }
+
+    @media (max-width: @screen-sm-max) {
+      .row > div {
+        padding-bottom: 10px;
+      }
+
+      .strip-submit {
+        padding-top: 10px;
+      }
+    }
+
+    @media (min-width: @screen-md-min) {
+      .row > div {
+        padding-top: 15px;
+        padding-bottom: 15px;
+      }
+    }
+
+    label {
+      color: white !important;
+      font-weight: bold;
+      opacity: 0.85;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+      text-align: right;
+    }
+
+    .strip-submit {
+      padding-bottom: 15px;
+    }
+  }
+
+  .strip-list() {
+    box-shadow: 0 0px 1px 0px rgba(0, 0, 0, 0.05);
+    padding: 5px 0;
+
+    .list-one-item {
+      @margin: 3px;
+      padding-top: @margin;
+      padding-bottom: @margin;
+
+      div.pull-right {
+        color: darken(white, 10%);
+        text-align: right;
+        min-width: 75px;
+        span:first-child{ display: none; }
+      }
+
+      div.pull-right:hover {
+        color: white;
+        cursor: pointer;
+        span:first-child{ display: inline; }
+        .glyphicon {  }
+      }
+    }
+  }
+
+  .dilemma-form-question {
+    background-color: @question;
+    .strip();
+  }
+
+  .dilemma-form-choices-label {
+    background-color: @choices-label;
+    .strip();
+  }
+
+  .dilemma-form-choices {
+     background-color: @choices;
+    .strip-list();
+  }
+
+  .dilemma-form-choices.even {
+      background-color: @choices-even !important;
+  }
+
+  .dilemma-form-emails-label {
+    background-color: @emails-label;
+    .strip();
+  }
+
+  .dilemma-form-emails {
+      background-color: @emails;
+    .strip-list();
+  }
+
+  .list-disabled {
+    opacity: 0.9;
+    pointer-events:none;
+  }
+
+  .dilemma-form-emails.even {
+    background-color: @emails-even
+  }
+
+
+  .dilemma-form-sender {
+    background-color: @sender;
+    .strip();
+
+    .col-md-6:nth-child(1) {
+      @media (max-width: @screen-sm-max) {
+        background-color: @sender-alt;
+      }
+    }
+  }
+
+  .dilemma-form-action {
+    background-color: black;
+    .strip();
+
+    .form-error {
+      @margin: 3px;
+      padding-top: @margin;
+      padding-bottom: @margin;
+    }
+
+    @media (min-width: @screen-md-min) {
+      .strip-submit button {
+        font-size: 15px !important;
+      }
+    }
+  }
+
+  // bootstrap overloading
+  .alert {
+    padding: 5px 10px !important;
+    margin-bottom: 5px !important;
+  }
+
+}
+
+#results {
+  .appColors();
+  box-shadow: 0 0px 1px 0px rgba(0, 0, 0, 0.05);
+
+  .picked {
+    background-color: @choices-label;
+
+    .result {
+      padding-top: 30px;
+      text-align: center;
+
+      .question {
+        font-size: 16px;
+        margin-right: 5px;
+      }
+
+      .value {
+      font-size: 40px;
+      font-weight: bold;
+      color: white;
+      text-shadow:
+        -1px -1px 0 rgba(0, 0, 0, 0.03),
+        1px -1px 0 rgba(0, 0, 0, 0.03),
+        -1px 1px 0 rgba(0, 0, 0, 0.03),
+        1px 1px 0 rgba(0, 0, 0, 0.03);
+      }
+    }
+  }
+
+  .emails {
+    color: darken(white, 10%);
+    background-color: darken(@choices-label, 5%);
+    padding: 10px 0;
+  }
+
+  .choices {
+    background-color: lighten(@background-color, 20%);
+    padding: 20px 0 0;
+
+    color: @gray-lighter;
+  }
+
+  .actions {
+
+    @media (max-width: @screen-sm-max) {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid lighten(@background-color, 23%);
+    }
+
+    @media (min-width: @screen-md-min) {
+      position: relative;
+      top: -60px;
+    }
+
+    .title {
+      padding: 0 10px;
+      margin-bottom: -5px;
+
+      font-size: 13px;
+      font-family: @font-family-monospace;
+      letter-spacing: -1px;
+      color: rgba(0, 0, 0, 0.2);
+      font-weight: bold;
+    }
+
+    .buttons {
+      background-color: rgba(0, 0, 0, 0.2);
+      padding: 10px 10px 5px;
+      button {
+        margin-bottom: 10px
+      }
+    }
+  }
+}

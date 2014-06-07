@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+    <div class="jumbotron">
+        <div class="container">
+            <h1>{{ 'home.h1'|trans }}</h1>
+            <p>{{ 'home.subtext'|trans|raw|nl2br }}</p>
+            <a class="btn btn-success btn-lg" role="button" href="{{ path('app') }}">{{ 'home.btn_call2action'|trans|raw }}</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-4">
+                <h2>{{ 'home.sub1.title'|trans }}</h2>
+                <p>{{ 'home.sub1.text'|trans }}</p>
+            </div>
+            <div class="col-md-4">
+                <h2>{{ 'home.sub2.title'|trans }}</h2>
+                <p>{{ 'home.sub2.text'|trans }}</p>
+                <p><a class="btn btn-default" target="_blank" href="https://github.com/conradfr/ploufplouf" role="button">{{ 'home.sub2.link'|trans|raw }}</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>{{ 'home.sub3.title'|trans }}</h2>
+                <p>{{ 'home.sub3.text'|transchoice(picked, {'%picked%': "<strong>#{picked}</strong>"})|raw }}</p>
+            </div>
+        </div>
+
+{% endblock %}

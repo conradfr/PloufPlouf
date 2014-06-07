@@ -1,0 +1,246 @@
+{% extends "base.html.twig" %}
+
+{% set body_extra = ' ng-app="ploufplouf" ng-cloak' %}
+
+{% block javascripts %}
+    {{  parent() }}
+    {#<script src="{{ asset('js/vendor/underscore-min.js') }}"></script>#}
+
+    <script src="{{ asset('js/angular/angular.min.js') }}"></script>
+    <script src="{{ asset('js/angular/angular-cookies.min.js') }}"></script>
+    <script src="{{ asset('js/angular/angular-route.min.js') }}"></script>
+    {#<script src="{{ asset('js/angular/i18n/angular-locale_fr-fr.js') }}"></script>#}
+
+    <script src="{{ asset('js/myangular/app.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div ng-view></div>
+
+<!--
+    Angular templates
+    @note put here to avoid extra http requests, may change if new templates are added
+-->
+
+<!-- Form -->
+<script type='text/ng-template' id='form.html'>
+    <form class="form-horizontal" role="form" name="dilemmaForm" id="dilemma" novalidate>
+
+        <div class="dilemma-form-question strip">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="form-group">
+                            <label for="question" class="col-sm-2 control-label">{{ 'app.label.question'|trans }}</label>
+                            <div class="col-sm-10">
+                                <div class="alert alert-danger" ng-show="errors.question">{% verbatim %}{{ errors.question }}{% endverbatim %}</div>
+                                <input type="text" class="form-control" id="question" name="question" placeholder="{{ 'app.placeholder.optional'|trans }}" ng-model="form.question">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dilemma-form-choices-label strip">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="form-group">
+                            <label for="newchoice" class="col-sm-2 control-label">{{ 'app.label.choices'|trans }}</label>
+                            <div class="col-sm-10">
+
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="newchoice" ng-model="form.new_choice" placeholder="{{ 'app.placeholder.choice'|trans }}">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="formActions.addChoice()"><span class="glyphicon glyphicon-plus"></span> {{ 'app.btn.add'|trans }}</button>
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right" role="menu">
+                                            <li><a href="#" ng-click="populate(['{{ 'app.btn.populate_yes'|trans }}',' {{ 'app.btn.populate_no'|trans }}'])">{{ 'app.btn.populate'|trans }}</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#" ng-click="reset()">{{ 'app.btn.reset'|trans }}</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dilemma-form-choices strip-list" ng-show="!form.choices.length">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-10 list-one-item">
+                        {{ 'app.no_choices'|trans }}
+                        <div class="alert alert-danger" ng-show="errors.choices">{% verbatim %}{{ errors.choices }}{% endverbatim %}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dilemma-form-choices strip-list" ng-class-even="'even'" ng-repeat="choice in form.choices" ng-show="form.choices.length">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-10 list-one-item">
+                        <div class="pull-right" ng-click="formActions.removeChoice($index)"><span>{{ 'app.btn.remove'|trans }} </span><span class="glyphicon glyphicon-trash"></span></div>
+						{% verbatim %}
+						  {{ ($index + 1) }}.&nbsp;&nbsp;{{ choice }}</div>
+                        {% endverbatim %}
+                </div>
+            </div>
+        </div>
+
+        <div class="dilemma-form-sender strip">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="name" class="col-sm-4 control-label">{{ 'app.label.name'|trans }}</label>
+                            <div class="col-sm-8">
+                                <div class="alert alert-danger" ng-show="errors.name">{% verbatim %}{{ errors.name }}{% endverbatim %}</div>
+                                <input type="text" class="form-control" id="name" name="name" ng-model="form.name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="email" class="col-sm-4 control-label">{{ 'app.label.email'|trans }}</label>
+                            <div class="col-sm-8">
+                                <div class="alert alert-danger" ng-show="errors.email">{% verbatim %}{{ errors.email }}{% endverbatim %}</div>
+                                <input type="email" class="form-control" id="email" name="email" ng-model="form.email">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dilemma-form-emails-label strip" ng-class="{true:'list-disabled'}[(!form.email || !form.name)]">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="form-group">
+                            <label for="newemail" class="col-sm-2 control-label">{{ 'app.label.emails'|trans }}</label>
+                            <div class="col-sm-10">
+                                <div class="alert alert-danger" ng-show="errors.emails">{% verbatim %}{{ errors.emails }}{% endverbatim %}</div>
+                                <div class="input-group">
+                                    <input type="email" class="form-control" id="newemail" name="newemail" ng-model="form.new_email" ng-disabled="!form.email || !form.name"
+                                           placeholder="{{ 'app.placeholder.email'|trans }}">
+								<span class="input-group-btn">
+						            <button class="btn btn-default" type="button" ng-click="formActions.addEmail()"><span class="glyphicon glyphicon-plus"></span> Add</button>
+						        </span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dilemma-form-emails strip-list" ng-show="!form.emails.length">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-10 list-one-item" ng-show="(form.email && form.name)">{{ 'app.no_emails'|trans }}</div>
+                    <div class="col-md-offset-2 col-md-10 list-one-item" ng-show="(!form.email || !form.name)">{{ 'app.cant_emails'|trans }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="dilemma-form-emails strip-list" ng-class-even="'even'" ng-repeat="email in form.emails" ng-show="form.emails.length" ng-class="{true:'list-disabled'}[(!form.email || !form.name)]">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-offset-2 col-md-10 list-one-item">
+                        <div class="pull-right" ng-click="formActions.removeEmail($index)"><span>{{ 'app.btn.remove'|trans }} </span><span class="glyphicon glyphicon-trash"></span></div>
+					{% verbatim %}
+					{{ ($index + 1) }}.&nbsp;&nbsp;{{ email }}</div>
+                    {% endverbatim %}
+                </div>
+            </div>
+        </div>
+
+        <div class="dilemma-form-action strip">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-offset-4 col-md-6 col-sm-offset-2 col-sm-10 strip-submit">
+                        <div class="alert alert-danger" ng-show="hasErrors()">{{ 'app.has_errors'|trans }}</div>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block" ng-click="submit()">{{ 'app.btn.submit_dilemma'|trans }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</script>
+
+
+<!-- Success -->
+<script type='text/ng-template' id='success.html'>
+<div ng-show="formActions.isSuccess()">
+<div id="results">
+
+    <div class="picked">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-10">
+                  <div class="result">
+                        <span class="question">{% verbatim %}{{ form.question }}{% endverbatim %}</span>
+                        <span class="value">{% verbatim %}{{ form.results.picked_value }}{% endverbatim %}</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="emails" ng-show="showEmails()">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-1 col-md-2 col-xs-4">
+                  {{ 'results.emails_sent'|trans }}&nbsp;
+                </div>
+                <div class="col-md-6 col-xs-8">
+                  {% verbatim %}{{ form.results.emails }} / {{ (form.emails.length + 1) }}{% endverbatim %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="choices">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-offset-1 col-md-2 col-xs-4">
+                  {{ 'results.choices'|trans }}
+            </div>
+            <div class="col-md-6 col-xs-8">
+                  {% verbatim %}
+                    <div ng-repeat="choice in form.choices">{{ ($index + 1) }}. {{ choice }}</div>
+                  {% endverbatim %}
+            </div>
+             <div class="col-md-2 col-xs-12">
+                 <div class="actions">
+                    <div class="title">{{ 'results.what_next'|trans }}</div>
+                    <div class="buttons">
+                      <button type="submit" class="btn btn-default btn-sm btn-block" ng-click="newDilemma()">{{ 'results.btn.new_dilemma'|trans }}</button>
+                      <button type="submit" class="btn btn-default btn-sm btn-block" ng-click="modifyDilemma()">{{ 'results.btn.modify'|trans }}</button>
+                    </div>
+                 </div>
+             </div>
+          </div>
+        </div>
+    </div>
+
+</div>
+</div>
+</script>
+
+{% endblock %}

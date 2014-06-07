@@ -1,0 +1,13 @@
+AddDefaultCharset UTF-8
+
+# Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+# Header set Pragma "no-cache"
+
+<IfModule mod_rewrite.c>
+    Options -MultiViews
+
+    RewriteEngine On
+    #RewriteBase /path/to/app
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>

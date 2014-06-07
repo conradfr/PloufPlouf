@@ -1,0 +1,94 @@
+# Layout
+
+layout:
+    home: Accueil
+    app: App
+    blacklist: Liste noire
+
+# Homepage
+
+home:
+    h1: Vous n'arrivez pas à vous décider ?
+    subtext: Laissez le dieu ordinateur et le hasard choisir pour vous !
+    btn_call2action: Essayer &raquo;
+
+    sub1:
+        title: Emails
+        text: Le résultat peut être envoyé par email à vous et toute personne que vous le souhaitez.
+
+    sub2:
+        title: Open source
+        text: Consultez les sources sur Github
+        link: Voir &raquo;
+
+    sub3:
+        title: Stats
+        text: "{0} PloufPlouf n'a encore aidé personne à choisir :(|[1, +Inf[ PloufPlouf a aidé %picked% indécis."
+
+# Dilemma page
+
+app:
+    label:
+        question: Question ou sujet :
+        choices: Choix :
+        emails: Emails :
+        name: Votre nom :
+        email: Votre email :
+
+    btn:
+        add: Ajouter
+        remove: enlever
+        submit_dilemma: Choisir pour moi
+
+        populate: Oui / Non
+        populate_yes: Oui
+        populate_no: Non
+        reset: Vider
+
+    placeholder:
+        optional: Optionnel
+        choice: Ajouter un choix
+        email: Ajouter un email
+
+    no_choices: Pas de choix. Vous devez ajouter au moins deux choix.
+
+    no_emails: Pas d'emails ajoutés. Vous serez le seul à recevoir les résultats.
+    cant_emails: Vous pouvez seulement ajouter des emails si vous avez entré le votre.
+
+    has_errors: Des erreurs sont présentes, merci de les corriger et d'essayer à nouveau.
+
+# Results page
+
+results:
+    header: Résultat :
+    choices: Les choix étaient :
+
+    emails_sent: Emails envoyés :
+
+    what_next: Quoi faire après
+    btn.new_dilemma: Nouveau dilemme
+    btn.modify: Modifier et refaire
+
+# Blacklist pages
+
+blacklist:
+    h1: Liste noire
+
+    remove_intro: Entrez votre email ce-dessous pour l'enlever de la liste noire.
+    submit: Envoyer
+
+    add_success: Votre email %email% a été ajouté à la liste noire.
+    revert: Vosu pouvez annuler cette décision en cliquant %link_start%ici%link_end%.
+    add_error: Votre email n'a PAS été ajouté à la liste noire.
+
+    email_sent_p1: Si votre email était placé en liste noire, un email vous a été envoyé.
+    email_sent_p2: Cliquez sur le lien contenu dans cet email pour compléter la procédure.
+
+    removal_success: Votre email %link% a été retiré de la liste noire.
+    removal_error1: Votre email n'a PAS été retiré de la liste noire.
+
+    error_hint: Le lien est peut être incorrect ou expiré.
+
+misc:
+    timelimit: Vous devez attendre %delay% secondes avant de réutiliser l'application quand vous utilisez l'envoi d'emails.
+    error: An error occured while picking a value

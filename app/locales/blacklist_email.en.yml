@@ -1,0 +1,7 @@
+hi: Hi,
+intro: You asked for your email to be removed from <a href="%link%">PloufPlouf</a>'s blacklist.
+removal_link: <a href="%link">Click here</a> to remove your email or go directly here : %link%
+signature: |
+  Regards,
+  <a href="%link%">PloufPlouf</a>
+timelimit: The link is available for 24 hours.

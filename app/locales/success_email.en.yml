@@ -1,0 +1,9 @@
+hi: Hi,
+intro: %name% used <a href="%link%">PloufPlouf</a> to decide between choices.
+question: Question was : %question%
+choices: Choices were :
+result : Result is : %result%
+signature: |
+  Have a nice day,
+  <a href="%link%">PloufPlouf</a>
+blacklist: You receive this email because %name% put you on his list. If you don't want to receive any email from us again, <a href="%link%">click here</a>.
