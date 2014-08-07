@@ -18,4 +18,4 @@ app/config/config.dist.yml is used as template for 'development.yml' and 'produc
 
 ## License ##
 
-PuPHPet is licensed under the GPLv2.
+PloufPlouf is licensed under the GPLv2.
