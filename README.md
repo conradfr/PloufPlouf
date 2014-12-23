@@ -5,12 +5,10 @@
 ## Stack ##
 
 - PHP 5.4, Silex & others (check composer.json)
-- AngularJS
-- Bootstrap 3
-- jQuery (1.10.2)
 - Redis
 
-(Bootstrap, jQuery & AngularJS are not committed in the repository and not currently installed by Composer)
+- AngularJS
+- Bootstrap 3
 
 ## Run ##
 
