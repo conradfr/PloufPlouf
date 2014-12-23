@@ -26,7 +26,7 @@
 
         "herrera-io/silex-wise": "~1.0",
         "entea/silex-twig-simple-asset-extension": "dev-master",
-        "predis/service-provider": "dev-master"
+        "predis/service-provider": "0.4.2"
     },
     "autoload": {
         "psr-0": {
