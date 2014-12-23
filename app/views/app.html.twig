@@ -4,12 +4,12 @@
 
 {% block javascripts %}
     {{  parent() }}
-    {#<script src="{{ asset('js/vendor/underscore-min.js') }}"></script>#}
+    {#<script src="{{ asset('bower_components/underscore-min.js') }}"></script>#}
 
-    <script src="{{ asset('js/angular/angular.min.js') }}"></script>
-    <script src="{{ asset('js/angular/angular-cookies.min.js') }}"></script>
-    <script src="{{ asset('js/angular/angular-route.min.js') }}"></script>
-    {#<script src="{{ asset('js/angular/i18n/angular-locale_fr-fr.js') }}"></script>#}
+    <script src="{{ asset('bower_components/angular/angular.min.js') }}"></script>
+    <script src="{{ asset('bower_components/angular-cookies/angular-cookies.min.js') }}"></script>
+    <script src="{{ asset('bower_components/angular-route/angular-route.min.js') }}"></script>
+    {#<script src="{{ asset('bower_components/angular-i18n/angular-locale_fr-fr.js') }}"></script>#}
 
     <script src="{{ asset('js/myangular/app.js') }}"></script>
 {% endblock %}
