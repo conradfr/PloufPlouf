@@ -37,20 +37,7 @@ ploufplouf.service('dilemmaForm', function() {
 
     // form values / inputs
     var service = {
-        form: {
-            question: 'kikoo',
-            name : 'lemec',
-            email: '',
-            new_choice: '',
-            choices: ['bitch', 'sdfsdf'],
-            new_email: '',
-            emails: [],
-            results: {
-                status: 'NOT SEND',
-                picked_id: null,
-                picked_value: null,
-                emails: null
-            }
+        form: {}
         }
     };
 
