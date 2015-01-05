@@ -38,8 +38,7 @@ ploufplouf.service('dilemmaForm', function() {
     // form values / inputs
     var service = {
         form: {}
-        }
-    };
+        };
 
     // add a choice
     service.addChoice = function () {
