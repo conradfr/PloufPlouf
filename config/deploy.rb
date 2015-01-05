@@ -23,11 +23,9 @@ set :deploy_to, "/var/www/#{fetch(:application)}"
 # set :pty, true
 
 # Default value for :linked_files is []
-# set :linked_files, fetch(:linked_files, []).push('config/database.yml')
 set :linked_files, fetch(:linked_files, []).push("app/config/#{fetch(:stage)}.yml")
 
 # Default value for linked_dirs is []
-# set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
 set :linked_dirs, fetch(:linked_dirs, []).push('vendor', 'web/bower_components');
 
 # Default value for default_env is {}
@@ -36,65 +34,33 @@ set :linked_dirs, fetch(:linked_dirs, []).push('vendor', 'web/bower_components')
 # Default value for keep_releases is 5
 set :keep_releases, 3
 
+# For composer task
+SSHKit.config.command_map[:composer] = "php #{shared_path.join("composer.phar")}"
+
+# File permissions
+set :file_permissions_paths, ["logs", "cache"]
+set :file_permissions_chmod_mode, "0774"
+
 namespace :deploy do
 
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
-    end
-  end
+  before "deploy:updated", "deploy:set_permissions:chmod"
+  before "deploy:updated", "myproject:composer"
 
 end
 
 namespace :myproject do
-  task :vendors do
+
+  # run install composer or self-update if already installed
+  task :composer do
     on roles(:app) do
-      execute "curl -s http://getcomposer.org/installer | php -- --install-dir=#{release_path}"
-      execute "cd #{release_path} && #{release_path}/composer.phar install --no-dev --optimize-autoloader"
+      within shared_path do
+        unless test "[", "-e", "composer.phar", "]"
+          invoke 'composer:install_executable'
+        else
+          invoke 'composer:self_update'
+        end
+      end
     end
   end
-
-  task :dirperm do
-    on roles(:app) do
-      execute "chmod -R g+wx #{release_path}/cache"
-      execute "chmod -R g+wx  #{release_path}/logs"
-  #  run "chmod -R 775 #{shared_path}/web/uploads"
-  #  run "ln -nfs #{shared_path}/web/uploads #{release_path}/web/uploads"
-    end
-  end
-
-#	task :copy do
-#    on roles(:app) do |host|
-#		  %w[ app/views/base.html.twig app/views/app.html.twig bower.json .bowerrc ].each do |f|
-#		    upload! f , "#{release_path}/" + f
-#		  end
-#    end
-#  end
-
-  task :bower do
-    on roles(:app) do
-		  within release_path do
-				execute *%w[ bower install ]
-			end
-    end
-  end
-
-  #task :disable do
-  #  run "mkdir -p #{shared_path}/web"
-  #  run "echo 'Site is on maintenance right now. Sorry.' > #{shared_path}/web/maintenance.html"
-  #  run "cp #{shared_path}/web/maintenance.html #{latest_release}/web/maintenance.html"
-  #end
-
-  #task :enable do
-  #  run "rm -f #{latest_release}/web/maintenance.html"
-  #end
 
 end
-
-after "deploy:published", "myproject:vendors"
-after "deploy:published", "myproject:dirperm"
-after "deploy:published", "myproject:copy"
-after "myproject:copy", "myproject:bower"
